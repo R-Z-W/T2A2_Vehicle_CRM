@@ -120,7 +120,7 @@ def seed_tables():
         # Admin Customer
         Customer(
             email="admin@email.com",
-            licence_num="5839124",
+            licence_num=5839124,
             location=locations[0],
             bank=banks[0],
             password=bcrypt.generate_password_hash('123456').decode('utf-8')
@@ -129,7 +129,7 @@ def seed_tables():
             fname="CustomerFirst1",
             lname="CustomerLast1",
             email="Customer1@email.com",
-            licence_num="7294851",
+            licence_num=7294851,
             location=locations[1],
             bank=banks[1],
             employee=employees[0],
@@ -140,7 +140,7 @@ def seed_tables():
             fname="CustomerFirst2",
             lname="CustomerLast2",
             email="Customer2@email.com",
-            licence_num="2314823",
+            licence_num=2314823,
             location=locations[2],
             bank=banks[2],
             password=bcrypt.generate_password_hash('123456').decode('utf-8')
@@ -174,6 +174,7 @@ def seed_tables():
             location=locations[1],
             customer=customers[0],
             vehicle=vehicles[1],
+            employee=employees[1],
             date_created=date.today(),
             date_delivered=date.today()
         ),
@@ -181,6 +182,7 @@ def seed_tables():
             location=locations[0],
             customer=customers[0],
             vehicle=vehicles[0],
+            employee=employees[1],
             date_created=date.today(),
             date_delivered=date.today()
         )

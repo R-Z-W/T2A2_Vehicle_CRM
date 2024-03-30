@@ -1,24 +1,80 @@
 <h1>Installation</h1>
 
-1. Install postgresql if not already installed
-2. Open a terminal and type ```sudo -u postgres psql```
-3. Create database called: vehicle_db: ```CREATE DATABASE vehicles_db;```
-4. Enter the database with ```\c vehicles_db``` and create a user called db_manager with a password: ```CREATE USER db_manager WITH PASSWORD '123456';```
-5. Create priviliges to user: ```GRANT ALL PRIVILEGES ON DATABASE vehicles_db TO db_manager;```
-6. If postgres permission denied for schema public. Input into terminal: ```GRANT ALL ON SCHEMA public TO db_manager;```
-<br/><br/>
+<h3>Setting Up Database </h3>
+<details><summary><b>Instructions</b></summary>
 
-7. Once the the PostgreSQL database has been made set up, make sure python 3.10 or above is installed.
-8. Check by typing in the terminal ```python -version```. If not installed or below 3.10, install python from python.org
-9. Download contents from this repo.
-10. Open a terminal in this repo.
-11. Activate the virtual environment by typing ```source .venv/bin/activate``` in the terminal.
-12. Install requirements ```pip install -r requirements.txt```
-13. Type ```flask db create``` to create tables.
-14. Type ```flask db seed``` to seed tables.
-15. Type ```flask db drop``` to drop tables to remove tables.
-* Extra step: Enter postgresql again: ```sudo -u postgres psql```. Type ```DROP DATABASE vehicle_db;``` to remove database and ```DROP USER db_manager;``` to remove user.
+1. Install <a url=https://www.postgresql.org/download/>PostgreSQL</a> if not already installed.
+2. Open a terminal and type 
+```sh 
+sudo -u postgres psql
+```
+3. Create database called: vehicle_db: 
+```sh
+CREATE DATABASE vehicles_db;
+```
+4. Enter the database:
+```sh 
+\c vehicles_db
+```
+5. Create a user called db_manager with a password: 
+```sh
+CREATE USER db_manager WITH PASSWORD '123456';
+```
+6. Create priviliges to user: 
+```sh
+GRANT ALL PRIVILEGES ON DATABASE vehicles_db TO db_manager;
+```
+7. If Postgres permission denied for schema public. Input into terminal: 
+```sh
+GRANT ALL ON SCHEMA public TO db_manager;
+```
 
+EXTRA: 
+- To remove database: 
+```sh
+DROP DATABASE vehicle_db;
+```
+- To remove user: 
+```sh
+DROP USER db_manager;
+```
+</details>
+
+<h3>Setting Up Flask</h3>
+<details><summary><b>Instructions</b></summary>
+
+1. Check for Python 3.10 or above via the terminal with: 
+```sh
+python --version
+```
+If not install <a url=https://www.python.org/downloads/>Python</a>
+
+2. Clone repository in the terminal: 
+```sh
+git clone git@github.com:R-Z-W/T2A2_Vehicle_CRM.git
+```
+3. Activate the virtual environment inside the cloned repository: 
+```sh
+source .venv/bin/activate
+```
+4. Install requirements: 
+```sh
+pip install -r requirements.txt
+```
+5. To create tables: 
+```sh
+flask db create
+```
+6. To seed tables: 
+```sh
+flask db seed
+```
+7. To drop tables:
+```sh
+flask db drop
+```
+
+</details>
 
 <h2>R1 Identification of the problem you are trying to solve by building this particular app.</h2>
 With the advent of Covid-19, disrupting supply chains of newly manufactured automobiles and the rising costs of living effecting people’s budgets, the rise of purchasing a second-hand car has become more popular than ever. Due to this, a new disruptive industry of online car dealerships has emerged to capitalise on this opportunity. This app aims to support this industry by providing a package that tracks the vehicle reconditioning process and offers a platform to store information on vehicle inventory, which subsequentially can be readily accessed by customers upon request.
@@ -36,26 +92,53 @@ Object-Relational Mapping (ORM) allows for the connection between an object orie
 
 <h2>R5	Document all endpoints for your API</h2>
 
+<h4>banks</h4>
+
+GET
 - http://localhost:8080/banks
 - http://localhost:8080/banks/{id}
+
+POST
+
+PATCH
+
+DELETE
+
+
+
+<h4>customers</h4>
+
+GET
 
 - http://localhost:8080/customers
 - http://localhost:8080/customers/{id}
 
+<h4>customer_orders</h4>
+
 - http://localhost:8080/customer_orders
 - http://localhost:8080/customers_orders/{id}
+
+<h4>locations</h4>
 
 - http://localhost:8080/locations
 - http://localhost:8080/locations/{id}
 
+<h4>workorders</h4>
+
 - http://localhost:8080/workorders
 - http://localhost:8080/workorders/{id}
+
+<h4>vehicles</h4>
 
 - http://localhost:8080/vehicles
 - http://localhost:8080/vehicles/{id}
 
+<h4>employees</h4>
+
 - http://localhost:8080/employees
 - http://localhost:8080/employees/{id}
+
+<h4>locations</h4>
 
 - http://localhost:8080/locations
 - http://localhost:8080/locations/{id}
@@ -64,7 +147,8 @@ Object-Relational Mapping (ORM) allows for the connection between an object orie
 
 ![VehicleCRM_ERM](./imgs/vehiclecrm.png)
 
-R7	Detail any third party services that your app will use</h2>
+<h2>R7	Detail any third party services that your app will use</h2>
+
 - SQLAlchemy:
 SQLAlchemy is a Python library that acts as an object-relational mapping (ORM) tool. It enables interaction with the API's database without the necessity of using direct SQL queries. By defining models as Python classes, SQLAlchemy facilitates tasks such as table creation, population, modification, and deletion within the database. It also supports 
 

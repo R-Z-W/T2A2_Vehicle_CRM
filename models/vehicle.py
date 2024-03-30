@@ -54,7 +54,7 @@ class VehicleSchema(ma.Schema):
     ))
 
     #vehicle_workorders
-    location = fields.Nested('LocationSchema', only = ['id', 'address1']) #can only have 1 location
+    location = fields.Nested('LocationSchema', only = ['address1']) #can only have 1 location
     customer_order = fields.Nested('Customer_OrderSchema', exclude=['vehicle']) #can only have 1 customer_order
     workorders = fields.List(fields.Nested('WorkorderSchema', exclude=['vehicle']))#multi workorders
     #workorder_comments = fields.List(fields.Nested('WorkorderSchema', exclude=['vehicle']))#multi comments
@@ -62,7 +62,7 @@ class VehicleSchema(ma.Schema):
 
 
     class Meta:
-        fields = ('id', 'vin', 'model_price', 'model_manufacturer', 'model_name', 'model_year', 'model_type', 'model_fuel_type', 'model_fuel_capacity', 'model_fuel_consumption', 'model_powerplant', 'model_transmission', 'model_gearbox', 'model_weight', 'model_color')
+        fields = ('id', 'vin', 'licence_num', 'registered', 'status', 'owner_Prev', 'second_hand', 'num_kilometer', 'num_key', 'model_price', 'model_manufacturer', 'model_name', 'model_year', 'model_type', 'model_fuel_type', 'model_fuel_capacity', 'model_fuel_consumption', 'model_powerplant', 'model_transmission', 'model_gearbox', 'model_weight', 'model_color', 'visible', 'location_id', 'location')
         ordered = True
 
 vehicle_schema = VehicleSchema() # {}

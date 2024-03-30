@@ -41,6 +41,9 @@ def create_app():
     from controllers.workorder_controller import workorders_bp
     app.register_blueprint(workorders_bp)
 
+    from controllers.workorder_comment_controller import workorder_comments_bp
+    app.register_blueprint(workorder_comments_bp)
+
     from controllers.customer_controller import customers_bp
     app.register_blueprint(customers_bp)
 

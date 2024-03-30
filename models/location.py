@@ -9,7 +9,7 @@ class Location(db.Model):
     address1 = db.Column(db.String)
     address2 = db.Column(db.String)
     city = db.Column(db.String)
-    postal_code = db.Column(db.Integer)
+    postal_code = db.Column(db.BigInteger)
     state = db.Column(db.String)
     country = db.Column(db.String)
 

@@ -25,7 +25,7 @@ class Employee(db.Model):
     #supervisor = db.relationship('Employee', remote_side=id, backref='employees')
 
     customer = db.relationship('Customer', back_populates='employee')
-    #customer_orders = db.relationship('Customer_Order', back_populates='employee', cascade='all, delete')
+    customer_orders = db.relationship('Customer_Order', back_populates='employee')
     workorders = db.relationship('Workorder', back_populates='employee', cascade='all, delete')
     workorder_comments = db.relationship('Workorder_Comment', back_populates='employee', cascade='all, delete')
    
@@ -33,15 +33,14 @@ class Employee(db.Model):
 
 class EmployeeSchema(ma.Schema):    
    
-    # employee = fields.Nested('EmployeeSchema', only=['id', 'fname', 'lname', 'phone_num'])
-    # customer_orders = fields.List(fields.Nested('Customer_OrderSchema', exclude=['employee']))
-
+      
     customer = fields.List(fields.Nested('CustomerSchema', exclude=['employee']))
+    customer_orders = fields.List(fields.Nested('Customer_OrderSchema', exclude=['employee']))
     workorders = fields.List(fields.Nested('WorkorderSchema', exclude=['employee']))#multi workorders
     workorder_comments = fields.List(fields.Nested('Workorder_CommentSchema', exclude=['employee']))#multi comments
 
     class Meta:
-        fields = ('id', 'role', 'work_department')
+        fields = ('id', 'role', 'hire_date', 'years', 'work_department', 'education_level', 'salary', 'bonus', 'commission', 'leave', 'leave_sick', 'leave_parental')
 
 employee_schema = EmployeeSchema()
 employees_schema = EmployeeSchema() 

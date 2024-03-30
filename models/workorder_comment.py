@@ -23,7 +23,7 @@ class Workorder_CommentSchema(ma.Schema):
     employee = fields.Nested('EmployeeSchema', only=['id'])
 
     class Meta:
-        fields = ('id', 'workorder', 'employee', 'title', 'message', 'date_created', 'date_modified')
+        fields = ('id', 'workorder_id', 'employee_id', 'title', 'message', 'date_created', 'date_modified')
 
 workorder_comment_schema = Workorder_CommentSchema()
 workorder_comments_schema = Workorder_CommentSchema(many=True)

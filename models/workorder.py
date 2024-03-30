@@ -32,7 +32,7 @@ class WorkorderSchema(ma.Schema):
 
 
     class Meta:
-        fields = ('id', 'employee', 'vehicle', 'status', 'title', 'description', 'date_created', 'date_completed', 'workorder_comments')
+        fields = ('id', 'employee_id', 'vehicle_id', 'status', 'title', 'description', 'date_created', 'date_completed')
         ordered = True
 
 workorder_schema = WorkorderSchema()

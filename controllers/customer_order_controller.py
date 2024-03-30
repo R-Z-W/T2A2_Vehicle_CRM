@@ -1,5 +1,5 @@
 #requires authentication
-
+from datetime import date
 
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -26,6 +26,80 @@ def get_one_card(customer_order_id): # card_id = *id
         return customer_order_schema.dump(customer_order)
     else:
         return {"error": f"Customer Order with id {customer_order_id} not found"}, 404
+    
+
+@customer_orders_bp.route("/", methods=["POST"])
+# @jwt_required()
+def create_customer_order():
+    body_data = customer_order_schema.load(request.get_json())
+    # Create a new customer_order model instance
+    customer_order = Customer_Order(
+        location_id = body_data.get('location_id'),
+        customer_id = body_data.get('customer_id'),
+        vehicle_id = body_data.get('vehicle_id'),
+        employee_id = body_data.get('employee_id'),
+        date_created = date.today(),
+        date_delivered = body_data.get('date_delivered'),
+        status = body_data.get('status')
+    )
+    # Add that to the session and commit
+    db.session.add(customer_order)
+    db.session.commit()
+    # return the newly created customer_order
+    return customer_order_schema.dump(customer_order), 201
+
+@customer_orders_bp.route('/<int:customer_order_id>', methods=["DELETE"])
+def delete_customer_order(customer_order_id):
+    stmt = db.select(Customer_Order).where(Customer_Order.id == customer_order_id)
+    customer_order = db.session.scalar(stmt)
+    # if customer_order exists
+    if customer_order:
+        # delete the customer_order from the session and commit
+        db.session.delete(customer_order)
+        db.session.commit()
+        # return msg
+        return {'message': f"Customer_order '{customer_order.id}' deleted successfully"}
+    # else
+    else:
+        # return error msg
+        return {'error': f"Customer_order with id {customer_order_id} not found"}, 404
+    
+
+# http://localhost:8080/customer_orders/5 - PUT, PATCH
+@customer_orders_bp.route('/<int:customer_order_id>', methods=["PUT", "PATCH"])
+def update_customer_order(customer_order_id):
+    # Get the data to be updated from the body of the request
+    body_data = customer_order_schema.load(request.get_json(), partial=True)
+    # Get the customer_order from the db whose fields need to be updated
+    stmt = db.select(Customer_Order).filter_by(id=customer_order_id)
+    customer_order = db.session.scalar(stmt)
+    # if customer_order exists
+    if customer_order:
+        # if str(customer_order.user_id) != get_jwt_identity(): # Integer Field Vs String Field
+        #     return {"error": "Only the owner can edit the customer_order"}, 403
+        # # update the fields
+        
+        customer_order.location_id = body_data.get('location_id') or customer_order.location_id
+        customer_order.customer_id = body_data.get('customer_id') or customer_order.customer_id
+        customer_order.vehicle_id = body_data.get('vehicle_id') or customer_order.vehicle_id
+        customer_order.employee_id = body_data.get('employee_id') or customer_order.employee_id
+        customer_order.date_delivered = body_data.get('date_delivered') or customer_order.date_delivered
+        customer_order.status = body_data.get('status') or customer_order.status
+
+        # commit the changes
+        db.session.commit()
+        # return the updated customer_order back
+         
+        return customer_order_schema.dump(customer_order)
+
+    # else
+    else:
+        # return error msg
+        return {'error': f'customer_order with id {customer_order_id} not found'}, 404
+
+
+
+
 ## requires authentication
 # from datetime import date
 # import functools

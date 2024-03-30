@@ -29,13 +29,12 @@ class Customer(db.Model):
 class CustomerSchema(ma.Schema):    
     #workorders = fields.List(fields.Nested('CardSchema', exclude=['user']))
     #workorder_comments = fields.List(fields.Nested('CommentSchema', exclude=['user']))
-    bank = fields.Nested('BankSchema', only = ['account_name', 'bank_name']) # can only have 1 bank (for now)
-    location = fields.Nested('LocationSchema', only=['address1', 'address2']) #can only have 1 location
+    bank = fields.Nested('BankSchema', only = ['id']) # can only have 1 bank (for now)
+    location = fields.Nested('LocationSchema', only=['id', 'city']) #can only have 1 location
     employee = fields.Nested('EmployeeSchema', only=['id']) #can only have 1 employee (for now)
     customer_orders = fields.List(fields.Nested('Customer_OrderSchema', exclude=['customer'])) # multi orders at 1 customer
 
     class Meta:
-        fields = ('id', 'fname', 'lname', 'location', 'email', 'password', 'is_admin', 'customer_orders')
-        ordered = True
+        fields = ('id', 'fname', 'lname', 'gender', 'birth_date', 'email', 'phone_num', 'licence_num', 'password', 'is_admin', 'bank_id', 'location_id', 'employee_id')
 customer_schema = CustomerSchema(exclude=['password']) # {}
 customers_schema = CustomerSchema(many=True, exclude=['password']) # [{}, {}, {}]

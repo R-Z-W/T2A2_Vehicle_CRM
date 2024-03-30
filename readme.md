@@ -61,17 +61,26 @@ source .venv/bin/activate
 ```sh
 pip install -r requirements.txt
 ```
-5. To create tables: 
+5. Place details of database in ```.env.sample``` and rename it to ```.env```:
+```sh
+DATABASE_URI= ...
+JWT_SECRET_KEY= ...
+```
+6. To create tables: 
 ```sh
 flask db create
 ```
-6. To seed tables: 
+7. To seed tables: 
 ```sh
 flask db seed
 ```
-7. To drop tables:
+8. To drop tables:
 ```sh
 flask db drop
+```
+9. To run server:
+```sh
+flask run
 ```
 
 </details>
@@ -94,54 +103,115 @@ Object-Relational Mapping (ORM) allows for the connection between an object orie
 
 <h4>banks</h4>
 
-GET
-- http://localhost:8080/banks
-- http://localhost:8080/banks/{id}
-
-POST
-
-PATCH
-
-DELETE
-
-
+| Operation | url | Description | Available Names |
+|---|---|---|---|
+| GET | http://localhost:8080/banks | Displays all banks | | 
+|---|---|---|---|
+| GET | http://localhost:8080/banks/{id} | Gets specific bank by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/banks | Creates a new bank | 'account_name', 'account_num', 'account_bsb', 'bank_name'|
+|---|---|---|---|
+| PATCH | http://localhost:8080/banks/{id} | Updates a existing bank via (id) | 'account_name', 'account_num', 'account_bsb', 'bank_name'|
+|---|---|---|---|
+| DELETE | http://localhost:8080/banks/{id} | Deletes single bank via (id) |  |
 
 <h4>customers</h4>
 
-GET
-
-- http://localhost:8080/customers
-- http://localhost:8080/customers/{id}
+| Operation | url | Description | Input Column Names |
+|---|---|---|---|
+| GET | http://localhost:8080/customers | Displays all customers | | 
+|---|---|---|---|
+| GET | http://localhost:8080/customers/{id} | Gets specific customer by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/customers | Creates a new customer | 'fname', 'lname', 'gender', 'birth_date', 'email', 'phone_num', 'licence_num', 'password', 'is_admin', 'bank_id', 'location_id', 'employee_id' |
+|---|---|---|---|
+| PATCH | http://localhost:8080/customers/{id} | Updates a existing customer via (id) |'fname', 'lname', 'gender', 'birth_date', 'email', 'phone_num', 'licence_num', 'password', 'is_admin', 'bank_id', 'location_id', 'employee_id' |
+|---|---|---|---|
+| DELETE | http://localhost:8080/customers/{id} | Deletes single customer via (id) |  |
 
 <h4>customer_orders</h4>
 
-- http://localhost:8080/customer_orders
-- http://localhost:8080/customers_orders/{id}
+| Operation | url | Description | Input Column Names |
+|---|---|---|---|
+| GET | http://localhost:8080/customer_orders | Displays all customer_orders | | 
+|---|---|---|---|
+| GET | http://localhost:8080/customers_orders/{id} | Gets specific customer_order by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/customer_orders | Creates a new customer_order | 'location_id', 'customer_id', 'vehicle_id', 'employee_id', 'date_created', 'date_delivered', 'status' |
+|---|---|---|---|
+| PATCH | http://localhost:8080/customers_orders/{id} | Updates a existing customer_order via (id) |'location_id', 'customer_id', 'vehicle_id', 'employee_id', 'date_created', 'date_delivered', 'status' |
+|---|---|---|---|
+| DELETE | http://localhost:8080/customers_orders/{id} | Deletes single customer_order via (id) |  |
 
 <h4>locations</h4>
 
-- http://localhost:8080/locations
-- http://localhost:8080/locations/{id}
+| Operation | url | Description | Available Names |
+|---|---|---|---|
+| GET | http://localhost:8080/locations | Displays all locations | | 
+|---|---|---|---|
+| GET | http://localhost:8080/locations/{id} | Gets specific location by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/locations | Creates a new location | 'address1', 'address2', 'city', 'postal_code', 'state', 'country'|
+|---|---|---|---|
+| PATCH | http://localhost:8080/locations/{id} | Updates a existing location via (id) | 'address1', 'address2', 'city', 'postal_code', 'state', 'country' |
+|---|---|---|---|
+| DELETE | http://localhost:8080/locations/{id} | Deletes single location via (id) |  |
 
 <h4>workorders</h4>
 
-- http://localhost:8080/workorders
-- http://localhost:8080/workorders/{id}
+| Operation | url | Description | Available Names |
+|---|---|---|---|
+| GET | http://localhost:8080/workorders | Displays all workorders | | 
+|---|---|---|---|
+| GET | http://localhost:8080/workorders/{id} | Gets specific workorder by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/workorders | Creates a new workorder | 'employee_id', 'vehicle_id', 'status', 'title', 'description', 'date_completed'|
+|---|---|---|---|
+| PATCH | http://localhost:8080/workorders/{id} | Updates a existing workorder via (id) | 'employee_id', 'vehicle_id', 'status', 'title', 'description', 'date_completed'|
+|---|---|---|---|
+| DELETE | http://localhost:8080/workorders/{id} | Deletes single workorder via (id) |  |
+
+<h4>workorder_comments</h4>
+
+| Operation | url | Description | Available Names |
+|---|---|---|---|
+| GET | http://localhost:8080/workorder_comments | Displays all workorder_comments | | 
+|---|---|---|---|
+| GET | http://localhost:8080/workorder_comments/{id} | Gets specific workorder_comment by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/workorder_comments | Creates a new workorder_comment | 'workorder_id', 'employee_id', 'title', 'message', 'date_modified'|
+|---|---|---|---|
+| PATCH | http://localhost:8080/workorder_comments/{id} | Updates a existing workorder_comment via (id) | 'workorder_id', 'employee_id', 'title', 'message', 'date_modified'|
+|---|---|---|---|
+| DELETE | http://localhost:8080/workorder_comments/{id} | Deletes single workorder_comment via (id) |  |
 
 <h4>vehicles</h4>
 
-- http://localhost:8080/vehicles
-- http://localhost:8080/vehicles/{id}
+| Operation | url | Description | Available Names |
+|---|---|---|---|
+| GET | http://localhost:8080/vehicles | Displays all vehicles | | 
+|---|---|---|---|
+| GET | http://localhost:8080/vehicles/{id} | Gets specific vehicle by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/vehicles | Creates a new vehicle | 'vin', 'licence_num', 'registered', 'status', 'owner_Prev', 'second_hand', 'num_kilometer', 'num_key', 'model_price', 'model_manufacturer', 'model_name', 'model_year', 'model_type', 'model_fuel_type', 'model_fuel_capacity', 'model_fuel_consumption', 'model_powerplant', 'model_transmission', 'model_gearbox', 'model_weight', 'model_color', 'visible', 'location_id'|
+|---|---|---|---|
+| PATCH | http://localhost:8080/vehicles/{id} | Updates a existing vehicle via (id) | 'vin', 'licence_num', 'registered', 'status', 'owner_Prev', 'second_hand', 'num_kilometer', 'num_key', 'model_price', 'model_manufacturer', 'model_name', 'model_year', 'model_type', 'model_fuel_type', 'model_fuel_capacity', 'model_fuel_consumption', 'model_powerplant', 'model_transmission', 'model_gearbox', 'model_weight', 'model_color', 'visible', 'location_id'|
+|---|---|---|---|
+| DELETE | http://localhost:8080/vehicles/{id} | Deletes single vehicle via (id) |  |
 
 <h4>employees</h4>
 
-- http://localhost:8080/employees
-- http://localhost:8080/employees/{id}
-
-<h4>locations</h4>
-
-- http://localhost:8080/locations
-- http://localhost:8080/locations/{id}
+| Operation | url | Description | Available Names |
+|---|---|---|---|
+| GET | http://localhost:8080/employees | Displays all employees | | 
+|---|---|---|---|
+| GET | http://localhost:8080/employees/{id} | Gets specific employee by (id) | |
+|---|---|---|---|
+| POST | http://localhost:8080/employees | Creates a new employee | 'role', 'years', 'work_department', 'education_level', 'salary', 'bonus', 'commission', 'leave', 'leave_sick', 'leave_parental'|
+|---|---|---|---|
+| PATCH | http://localhost:8080/employees/{id} | Updates a existing employee via (id) | 'role', 'years', 'work_department', 'education_level', 'salary', 'bonus', 'commission', 'leave', 'leave_sick', 'leave_parental'|
+|---|---|---|---|
+| DELETE | http://localhost:8080/employees/{id} | Deletes single employee via (id) |  |
 
 <h2>R6	An ERD for your app</h2>
 
@@ -160,8 +230,49 @@ JSON Web Tokens (JWT) is used for customer identification within the API. JWT ge
 
 <h2>R8	Describe your projects models in terms of the relationships they have with each other</h2>
 
+The project has 8 unique models that serve different purposes in this project. The bank, employee and location models are unique in that they are independent models that do not contain foreign keys. They serve as extensions to the main models, holding additional information that either requires additional security or is not always required when querying the database.
+- Bank Model
+    - The bank model holds vital information for payments when buying a vehicle or paying salaries to employees. This model does not contain any foreign keys to other models but has a many to many relationship to the customer model inorder to facilitate customers with multiple bank accounts or shared accounts.
+- Employee Model
+    -  The employee model is used to hold important information about employees. This model utilises a one to many relationshipis throughout the application inorder to link employees to workorders, workorder_comments and customer_orders. This model was also designed to have a one to one relationship to the customer model to prevent duplicate data in the event of a customer becoming an employee or vice versa.
+- Location Model
+    - Locations are used in many models throughout this application. Thus, seperating locations into its own model was vital in maintaining data integrity inorder to prevent data duplication. This model is used in a one to many relationship for vehicles, customers and customer_orders.
+
+The next 3 models form the main structure of any second hand vehicle dealership, containing vital information that is required for the buisness to function. These are:
+- Vehicle Model
+    - This model holds essential data required for selling a vehicle to a customer. It holds a one to many relationship to the workorder and customer_order models. 
+- Customer Model
+    - The customer model contains vital information about customers but also employees. This model has a one to many relationship with the customer_order model allowing customers to purchase multiple vehicles under the same account.
+- Workorder Model
+    - Without the workorder model, assign and tracking tasks performed on vehicles would be confusing and unorganized, especially in a large operation. This model extends its capability with a workorder_comment model allowing for employees to comment issues that may arise when working on workorders.
+
+The last 2 models attempt to extend and provide convenience to the main models. These include:
+- Workorder_Comment Model
+    - This model aims to provide an avenue of communication between employees working on workorders. With its many to one relationship, workorders and employees are allowed to create multiple comments on the same or different workorders.
+- Customer_Order Model
+    - The customer_order model attempts to provide a suitable table that links and tracks all the appropiate information required in generating a sales order. This model has a many to one relationship with the employee, customer and location models as only one of each should be allowed to be linked to a sale. In addition, a one to one relationship between the model and the vehicle model is established as a vehicle should never be in a situation where it is being sold to multiple customers at the same time.
+
 
 <h2>R9	Discuss the database relations to be implemented in your application</h2>
 
+- One-to-Many Relationships:
+    - Employee to Workorders, Workorder_Comments, Customer_Orders: 
+        - An employee can be associated with multiple workorders, workorder comments and customer orders. This is represented by a foreign key in the respective models pointing to the Employee model.
+    - Location to Vehicles, Customers, Customer_Orders: 
+        - Each location can have multiple vehicles, customers, and customer orders associated with it. This is represented by a foreign key in the respective models pointing to the Location model.
+    - Workorder to Workorder Comments
+        - A workorder can contain 0 or many employee comments. Therefore the workorder comments model should contain a foreign key that represents the workorder it points to.
+    - Customer to Customer Order
+        - A customer is allowed to have multiple orders depending on how many vehicles they wish to buy. Thus, a customer can have its id utilised in multiple customer orders consequentially required customer orders having a customer foreign key.
+    - Vehicle to Workorder
+        - Throughout the reconditioning process of a vehicle, multiple workorders are created to assign employees to task to bring the vehicle to a road worthy standard. Thererfore, vehicles must have a one to many relationship with the workorder model.
 
-<h2>R10	Describe the way tasks are allocated and tracked in your project</h2>
+- Many-to-Many Relationships:
+    - Bank to Customer: 
+        - Since a customer can have multiple bank accounts and a bank account can have customers share the account, a many-to-many relationship is established between the Bank and Customer models.
+
+- One-to-One Relationships:
+    - Employee to Customer: 
+        - An employee can also be a customer, and vice versa. To prevent data duplication and maintain integrity, a one-to-one relationship is established between the Employee and Customer models.
+    - Vehicle to Customer Order:
+        - It is important that a vehicle must only have one customer order to prevent multiple customers from purchasing the same vehicle. Therefore a one to one relationship between both models must be established.
